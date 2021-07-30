@@ -22,12 +22,30 @@ describe('Esperas...', () => {
     });
 
     
-    it.only('Uso do find', () => {
+    it('Uso do find', () => {
         cy.get('#buttonList').click()
         cy.get('#lista')
             .find('span')
             .should('contain', 'Item 1')
+             
+        cy.get('#lista span')
             .should('contain', 'Item 2')
-        //#lista span
     });
+
+    it('Uso do timeout', () => {
+/*         cy.get('#buttonDelay').click()
+        cy.get('#novoCampo').should('exist') */
+
+        cy.get('#buttonListDOM').click()
+        cy.wait(5000)
+        cy.get('#lista span')
+            .should('contain', 'Item 2')
+    });
+
+    it.only('Should vs Then', () => {
+            cy.get('#buttonListDOM').click()
+            cy.get('#lista span').then($el =>{
+                expect($el).to.have.length(1)
+            })
+        });
 });
